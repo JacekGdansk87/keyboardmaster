@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>JS Drum Kit</title>
+  <title>Keyboard master</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Master of keyboard</h1>
+    <h1 id="h1">Master of keyboard - level _EASY_</h1>
 
   <div class="keys">
       <div data-key="81" class="key">
@@ -123,7 +123,15 @@
         <kbd>SPACE</kbd>
         <span class="sound">snare</span>
     </div>
-      
+      <div style="clear:both;"></div>
+    
+      <ul id="menu">
+          <li><a data-option="1" class="round green">Start<span  class="round" id="start">Are you ready?</span></a></li>
+          <li><a data-option="2" class="round red" id="level">Level Up<span class="round">Are you sure? </span></a></li>
+          <li><a class="round green" id="time">Time: 60s<span class="round">You're time. </span></a></li>
+          <li><a class="round green" id="points" style="background: aqua;">Points: 0<span class="round">You're points. </span></a></li>
+      </ul> 
+    </div>
 
   <audio data-key="81" src="sounds/clap.wav"></audio>
   <audio data-key="87" src="sounds/hihat.wav"></audio>
@@ -154,6 +162,13 @@
   <audio data-key="32" src="sounds/tink.wav"></audio>
 
 <script>
+  let countdown;
+  let start = true;
+  let level = 1;
+  let time = 60;  
+  const option = document.querySelectorAll('[data-option]');  
+
+    
   function removeTransition(e) {
     if (e.propertyName !== 'transform') return;
     e.target.classList.remove('playing');
@@ -168,10 +183,48 @@
     audio.currentTime = 0;
     audio.play();
   }
-
+    
+    function startGame(){
+      if(this.dataset.option == "1"){      
+          timer(time*level);
+          document.getElementById("menu").innerHTML = "";
+      }      
+      if(this.dataset.option == "2"){
+          ++level;
+          if(level == 1 || level > 3){
+              level = 1;
+              document.getElementById("h1").innerHTML = "Master of keyboard - level _EASY_";
+              document.getElementById("time").innerHTML = "Time:60s<span class='round'>You're time. </span>"; 
+          }
+          else if(level == 2){
+              document.getElementById("h1").innerHTML = "Master of keyboard - level MEDIUM";
+              document.getElementById("time").innerHTML = "Time:120s<span class='round'>You're time. </span>"; 
+          }          
+          else if(level == 3){
+              document.getElementById("h1").innerHTML = "Master of keyboard - level _HARD_";
+              document.getElementById("time").innerHTML = "Time:180s<span class='round'>You're time. </span>"; 
+          }
+      }
+        
+  }
+    
+  function timer(seconds){
+      const now = Date.now();
+      const then = now + seconds * 1000;
+      
+      countdown = setInterval(() =>{
+        const secondLeft = Math.round((then - Date.now())/1000);
+        if(secondLeft <= 0){
+            clearInterval(countdown);
+        }
+          document.getElementById("time").innerHTML = secondLeft;    
+  },1000);
+  }  
+  
   const keys = Array.from(document.querySelectorAll('.key'));
   keys.forEach(key => key.addEventListener('transitionend', removeTransition));
   window.addEventListener('keydown', playSound);
+  option.forEach(option => option.addEventListener('click', startGame));
 </script>
 
 
