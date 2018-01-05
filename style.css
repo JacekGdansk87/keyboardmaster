@@ -57,9 +57,16 @@ kbd {
   color: #ffc600;
 }
 
+.randomsound {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: .1rem;
+    color: #FF002F;
+}
+
 ul {
     margin: 20px auto;
-    margin-left: 16%;
+    margin-left: 22%;
 }
 
 li {

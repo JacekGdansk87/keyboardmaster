@@ -11,125 +11,97 @@
   <div class="keys">
       <div data-key="81" class="key">
           <kbd>Q</kbd>
-          <span class="sound">clap</span>
       </div>
       <div data-key="87" class="key">
           <kbd>W</kbd>
-          <span class="sound">hihat</span>
       </div>
       <div data-key="69" class="key">
           <kbd>E</kbd>
-          <span class="sound">kick</span>
       </div>
       <div data-key="82" class="key">
           <kbd>R</kbd>
-          <span class="sound">openhat</span>
       </div>
       <div data-key="84" class="key">
           <kbd>T</kbd>
-          <span class="sound">boom</span>
       </div>
       <div data-key="89" class="key">
           <kbd>Y</kbd>
-          <span class="sound">ride</span>
       </div>
       <div data-key="85" class="key">
           <kbd>U</kbd>
-          <span class="sound">snare</span>
       </div>
       <div data-key="73" class="key">
           <kbd>I</kbd>
-          <span class="sound">tom</span>
       </div>
       <div data-key="79" class="key">
           <kbd>O</kbd>
-          <span class="sound">tink</span>
       </div>      
     <div data-key="80" class="key" >
           <kbd>P</kbd>
-          <span class="sound">tink</span>
     </div>
       <div style="clear:both;"></div>
       
-    <div data-key="65" class="key">
+      <div data-key="65" class="key" style="margin-left:6rem;">
       <kbd>A</kbd>
-      <span class="sound">clap</span>
     </div>
     <div data-key="83" class="key">
       <kbd>S</kbd>
-      <span class="sound">hihat</span>
           </div>
     <div data-key="68" class="key">
       <kbd>D</kbd>
-      <span class="sound">kick</span>
           </div>
     <div data-key="70" class="key">
       <kbd>F</kbd>
-      <span class="sound">openhat</span>
     </div>
     <div data-key="71" class="key">
       <kbd>G</kbd>
-      <span class="sound">boom</span>
     </div>
     <div data-key="72" class="key">
       <kbd>H</kbd>
-      <span class="sound">ride</span>
     </div>
     <div data-key="74" class="key">
       <kbd>J</kbd>
-      <span class="sound">snare</span>
     </div>
     <div data-key="75" class="key">
       <kbd>K</kbd>
-      <span class="sound">tom</span>
     </div>
     <div data-key="76" class="key">
       <kbd>L</kbd>
-      <span class="sound">tink</span>
     </div>    
-    <div data-key="90" class="key">
-      <kbd>Z</kbd>
-      <span class="sound">clap</span>
-    </div>
     <div style="clear:both;"></div>  
     
-      <div data-key="88" class="key" style="margin-left:28.5rem;">
+      <div data-key="90" class="key" style="margin-left:12rem;">
+          <kbd>Z</kbd>
+      </div>
+      <div data-key="88" class="key" >
       <kbd>X</kbd>
-      <span class="sound">hihat</span>
     </div>    
     <div data-key="67" class="key">
       <kbd>C</kbd>
-      <span class="sound">kick</span>
     </div>
     <div data-key="86" class="key">
       <kbd>V</kbd>
-      <span class="sound">openhat</span>
     </div>
     <div data-key="66" class="key">
       <kbd>B</kbd>
-      <span class="sound">boom</span>
     </div>
     <div data-key="78" class="key">
       <kbd>N</kbd>
-      <span class="sound">ride</span>
     </div>
     <div data-key="77" class="key">
       <kbd>M</kbd>
-      <span class="sound">snare</span>
     </div>    
     <div style="clear:both;"></div>   
       
-    <div data-key="32" class="key" style="width: 38rem; margin-left:42rem">
+    <div data-key="32" class="key" style="width: 38rem; margin-left:40rem">
         <kbd>SPACE</kbd>
-        <span class="sound">snare</span>
     </div>
       <div style="clear:both;"></div>
     
       <ul id="menu">
-          <li><a data-option="1" class="round green">Start<span  class="round" id="start">Are you ready?</span></a></li>
-          <li><a data-option="2" class="round red" id="level">Level Up<span class="round">Are you sure? </span></a></li>
-          <li><a class="round green" id="time">Time: 60s<span class="round">You're time. </span></a></li>
-          <li><a class="round green" id="points" style="background: aqua;">Points: 0<span class="round">You're points. </span></a></li>
+          <li><a data-option="1" class="round green">Start<span class="round" id="start">Ready?</span></a></li>
+          <li><a data-option="2" class="round red" id="level">Level Up<span class="round">Which level?</span></a></li>
+          <li><a class="round green" id="time" >Time: 60s<span class="round">You're time.</span></a></li>
       </ul> 
     </div>
 
@@ -160,6 +132,7 @@
   <audio data-key="78" src="sounds/tom.wav"></audio>
   <audio data-key="77" src="sounds/tink.wav"></audio>
   <audio data-key="32" src="sounds/tink.wav"></audio>
+  <audio data-key="32" src="sounds/tink.wav"></audio>
 
 <script>
   let countdown;
@@ -186,23 +159,23 @@
     
     function startGame(){
       if(this.dataset.option == "1"){      
-          timer(time*level);
-          document.getElementById("menu").innerHTML = "";
+          timer(time);
+          document.getElementById("menu").innerHTML = 
+              "<li><a class='round red'>Reset<span class='round' id='start' onclick='location.reload()'>To hard?</span></a></li>"+
+              "<li><a class='round green' id='points' style='background: aqua;'>Points: 0<span class='round'>You're points.</span></a></li>"+
+              "<li><a class='round green' id='time'>"+time+"</a></li>";
       }      
       if(this.dataset.option == "2"){
           ++level;
           if(level == 1 || level > 3){
               level = 1;
               document.getElementById("h1").innerHTML = "Master of keyboard - level _EASY_";
-              document.getElementById("time").innerHTML = "Time:60s<span class='round'>You're time. </span>"; 
           }
           else if(level == 2){
               document.getElementById("h1").innerHTML = "Master of keyboard - level MEDIUM";
-              document.getElementById("time").innerHTML = "Time:120s<span class='round'>You're time. </span>"; 
           }          
           else if(level == 3){
               document.getElementById("h1").innerHTML = "Master of keyboard - level _HARD_";
-              document.getElementById("time").innerHTML = "Time:180s<span class='round'>You're time. </span>"; 
           }
       }
         
@@ -217,7 +190,10 @@
         if(secondLeft <= 0){
             clearInterval(countdown);
         }
-          document.getElementById("time").innerHTML = secondLeft;    
+          let rand = Math.floor(Math.random()*(91-64+1))+64;          
+          
+          
+          document.getElementById("time").innerHTML = secondLeft;
   },1000);
   }  
   
